@@ -11,6 +11,8 @@
   "dependencies": {
     "expo": "~51.0.28",
     "expo-status-bar": "~1.12.1",
+    "expo-linear-gradient": "~12.7.2",
+    "prettier": "^3.3.3",
     "react": "18.2.0",
     "react-native": "0.74.5"
   },
