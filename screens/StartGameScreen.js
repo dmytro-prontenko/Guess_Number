@@ -1,8 +1,9 @@
 import { Alert, StyleSheet, TextInput, View } from 'react-native'
 import PrimaryButton from '../components/PrimaryButton'
 import { useState } from 'react'
+import colors from '../constants/colors'
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onPickNumber }) => {
     const [enteredValue, setEnteredValue] = useState('')
 
     const handleEnteredValue = (enteredText) => {
@@ -14,8 +15,8 @@ const StartGameScreen = () => {
     }
 
     const confirmInputHandler = () => {
-        const checkNumber = parseInt(enteredValue)
-        if (isNaN(checkNumber) || checkNumber <= 0 || checkNumber > 99) {
+        const chosenNumber = parseInt(enteredValue)
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
             Alert.alert('Error', 'Please enter a number between 1 and 99', [
                 {
                     text: 'Okay',
@@ -25,7 +26,7 @@ const StartGameScreen = () => {
             ])
             return
         }
-        console.log('Valid number')
+        onPickNumber(chosenNumber)
     }
 
     return (
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginHorizontal: 24,
         padding: 16,
-        backgroundColor: '#3b021f',
+        backgroundColor: colors.primary_darkest,
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
@@ -78,8 +79,8 @@ const styles = StyleSheet.create({
         width: 60,
         fontSize: 32,
         borderBottomWidth: 2,
-        borderBottomColor: '#ddb52f',
-        color: '#ddb52f',
+        borderBottomColor: colors.yellow,
+        color: colors.yellow,
         marginVertical: 8,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -87,7 +88,6 @@ const styles = StyleSheet.create({
 
     buttonsContainer: {
         flexDirection: 'row',
-        // justifyContent: 'space-between',
     },
     buttonContainer: {
         flex: 1,
