@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, SafeAreaView, StyleSheet, View } from 'react-native'
+import { useEffect, useState } from 'react'
+import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native'
 
 import { useFonts } from 'expo-font'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -66,7 +66,6 @@ export default function App() {
             >
                 <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
             </ImageBackground>
-            {/*<StatusBar style="auto" />*/}
         </LinearGradient>
     )
 }
