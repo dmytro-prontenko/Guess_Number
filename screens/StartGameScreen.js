@@ -1,8 +1,13 @@
-import { Alert, StyleSheet, TextInput, View } from 'react-native'
-import PrimaryButton from '../components/PrimaryButton'
 import { useState } from 'react'
+import { Alert, StyleSheet, TextInput, View } from 'react-native'
 
-const StartGameScreen = () => {
+import Card from '../components/ui/Card'
+import InstructionsText from '../components/ui/InstructionsText'
+import PrimaryButton from '../components/ui/PrimaryButton'
+import Title from '../components/ui/Title'
+import colors from '../constants/colors'
+
+const StartGameScreen = ({ onPickNumber }) => {
     const [enteredValue, setEnteredValue] = useState('')
 
     const handleEnteredValue = (enteredText) => {
@@ -14,8 +19,8 @@ const StartGameScreen = () => {
     }
 
     const confirmInputHandler = () => {
-        const checkNumber = parseInt(enteredValue)
-        if (isNaN(checkNumber) || checkNumber <= 0 || checkNumber > 99) {
+        const chosenNumber = parseInt(enteredValue)
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
             Alert.alert('Error', 'Please enter a number between 1 and 99', [
                 {
                     text: 'Okay',
@@ -25,31 +30,37 @@ const StartGameScreen = () => {
             ])
             return
         }
-        console.log('Valid number')
+        onPickNumber(chosenNumber)
     }
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                style={styles.numberInput}
-                maxLength={2}
-                inputMode={'numeric'}
-                keyboardType={'number-pad'}
-                value={enteredValue}
-                onChangeText={handleEnteredValue}
-            />
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={resetInputHandler}>
-                        Reset
-                    </PrimaryButton>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={confirmInputHandler}>
-                        Confirm
-                    </PrimaryButton>
-                </View>
+        <View>
+            <View style={styles.rootContainer}>
+                <Title>Guess my number</Title>
             </View>
+            <Card>
+                <InstructionsText>Enter your number</InstructionsText>
+                <TextInput
+                    style={styles.numberInput}
+                    maxLength={2}
+                    inputMode={'numeric'}
+                    keyboardType={'number-pad'}
+                    value={enteredValue}
+                    onChangeText={handleEnteredValue}
+                />
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={resetInputHandler}>
+                            Reset
+                        </PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={confirmInputHandler}>
+                            Confirm
+                        </PrimaryButton>
+                    </View>
+                </View>
+            </Card>
         </View>
     )
 }
@@ -57,37 +68,24 @@ const StartGameScreen = () => {
 export default StartGameScreen
 
 const styles = StyleSheet.create({
-    inputContainer: {
+    rootContainer: {
+        // flex: 1,
         marginTop: 100,
-        marginHorizontal: 24,
-        padding: 16,
-        backgroundColor: '#3b021f',
-        borderRadius: 8,
-        justifyContent: 'center',
         alignItems: 'center',
-        //Налаштування тіні для Android
-        elevation: 8,
-        // Налаштування тіні для iOS
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 1 },
-        shadowRadius: 6,
-        shadowOpacity: 0.25,
     },
     numberInput: {
         height: 50,
         width: 60,
         fontSize: 32,
         borderBottomWidth: 2,
-        borderBottomColor: '#ddb52f',
-        color: '#ddb52f',
+        borderBottomColor: colors.yellow,
+        color: colors.yellow,
         marginVertical: 8,
         fontWeight: 'bold',
         textAlign: 'center',
     },
-
     buttonsContainer: {
         flexDirection: 'row',
-        // justifyContent: 'space-between',
     },
     buttonContainer: {
         flex: 1,
