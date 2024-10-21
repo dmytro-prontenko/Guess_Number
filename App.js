@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native'
 
 import { useFonts } from 'expo-font'
@@ -12,6 +12,7 @@ import StartGameScreen from './screens/StartGameScreen'
 
 export default function App() {
     const [userNumber, setUserNumber] = useState()
+    const [numberOfRounds, setNumberOfRounds] = useState()
     const [gameIsOver, setGameIsOver] = useState(false)
 
     const [fontsLoaded, fontError] = useFonts({
@@ -34,6 +35,16 @@ export default function App() {
         setGameIsOver(false)
     }
 
+    const numberOfRoundsHandler = (rounds) => {
+        setNumberOfRounds(rounds)
+    }
+
+    const newGameHandler = () => {
+        setUserNumber(null)
+        setGameIsOver(false)
+        setNumberOfRounds(1)
+    }
+
     const gameIsOverHandler = () => {
         setGameIsOver(true)
     }
@@ -44,13 +55,20 @@ export default function App() {
         screen = (
             <GameScreen
                 userNumber={userNumber}
+                numberOfRounds={numberOfRoundsHandler}
                 onGameOver={gameIsOverHandler}
             />
         )
     }
 
     if (userNumber && gameIsOver) {
-        screen = <GameOverScreen />
+        screen = (
+            <GameOverScreen
+                userNumber={userNumber}
+                onStartGame={newGameHandler}
+                numberOfRounds={numberOfRounds}
+            />
+        )
     }
 
     return (

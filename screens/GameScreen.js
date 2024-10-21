@@ -18,20 +18,18 @@ function generateRandomBetween(min, max, exclude) {
     }
 }
 
-const GameScreen = ({ userNumber, onGameOver }) => {
+const GameScreen = ({ userNumber, onGameOver, numberOfRounds }) => {
     const [minBound, setMinBound] = useState(1)
     const [maxBound, setMaxBound] = useState(100)
     const [currentGuess, setCurrentGuess] = useState(() =>
         generateRandomBetween(1, 100, userNumber)
     )
-    const [guessRounds, setGuessRounds] = useState(0)
+    const [guessRounds, setGuessRounds] = useState(1)
 
     useEffect(() => {
         if (currentGuess === userNumber) {
             onGameOver()
-            Alert.alert('Ха!', `Схоже я вгадав. Твоє число ${currentGuess}`, [
-                { text: 'Закінчити', style: 'default' },
-            ])
+            numberOfRounds(guessRounds)
         }
     }, [currentGuess, userNumber, onGameOver])
 
@@ -91,9 +89,6 @@ const GameScreen = ({ userNumber, onGameOver }) => {
                     </View>
                 </View>
             </Card>
-            <View>
-                <Text>Кількість спроб: {guessRounds}</Text>
-            </View>
         </View>
     )
 }
