@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native'
 
 import { useFonts } from 'expo-font'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar/build/StatusBar'
 
 import colors from './constants/colors'
 import GameOverScreen from './screens/GameOverScreen'
@@ -72,19 +73,24 @@ export default function App() {
     }
 
     return (
-        <LinearGradient
-            style={styles.rootScreen}
-            colors={[colors['primary_darkest'], colors.yellow]}
-        >
-            <ImageBackground
-                source={require('./assets/images/background.webp')}
-                resizeMode="cover"
+        <>
+            <StatusBar style={'light'} />
+            <LinearGradient
                 style={styles.rootScreen}
-                imageStyle={styles.backgroundImage}
+                colors={[colors['primary_darkest'], colors.yellow]}
             >
-                <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
-            </ImageBackground>
-        </LinearGradient>
+                <ImageBackground
+                    source={require('./assets/images/background.webp')}
+                    resizeMode="cover"
+                    style={styles.rootScreen}
+                    imageStyle={styles.backgroundImage}
+                >
+                    <SafeAreaView style={styles.rootScreen}>
+                        {screen}
+                    </SafeAreaView>
+                </ImageBackground>
+            </LinearGradient>
+        </>
     )
 }
 

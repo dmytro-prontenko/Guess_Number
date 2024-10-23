@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 
-const Title = ({ children }) => {
+const TitleAndroid = ({ children }) => {
     return (
         <View>
             <Text style={styles.title}>{children}</Text>
@@ -15,7 +15,11 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold',
         color: 'white',
         textAlign: 'center',
-        borderWidth: 2,
+        // borderWidth: Platform.OS === 'ios' ? 2 : 0,
+        borderWidth: Platform.select({
+            android: 2,
+            ios: 0,
+        }),
         borderColor: 'white',
         padding: 12,
         maxWidth: '80%',
@@ -23,4 +27,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Title
+export default TitleAndroid
