@@ -1,4 +1,5 @@
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+
 import colors from '../../constants/colors'
 
 const Card = ({ children }) => {
@@ -7,7 +8,7 @@ const Card = ({ children }) => {
 
 const styles = StyleSheet.create({
     inputContainer: {
-        marginTop: 36,
+        // marginTop: deviceWidth < 380 ? 12 : 18,
         marginHorizontal: 24,
         padding: 16,
         backgroundColor: colors.primary_darkest,
